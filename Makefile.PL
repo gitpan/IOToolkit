@@ -5,7 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     'NAME'		=> 'IOToolkit',
     'VERSION_FROM'	=> 'IOToolkit.pm', # finds $VERSION
-    'PREREQ_PM'		=> {'Crypt::RC6','DirHandle','Digest::MD5'}, # e.g., Module::Name => 1.1
+    'PREREQ_PM'		=> {'Crypt::RC6','DirHandle','Digest::MD5','File::Basename','Getopt::Long'}, # e.g., Module::Name => 1.1
     ($] >= 5.005 ?    ## Add these new keywords supported since 5.005
       (ABSTRACT_FROM => 'IOToolkit.pm', # retrieve abstract from module
        AUTHOR     => 'Markus Linke <markus.linke@linke.de>') : ()),

@@ -1,37 +1,34 @@
-#!/hfx/opt/perl-5.8/bin/perl
-
-#$LastChangedDate: 2004-10-31 14:16:14 +0000 (Sun, 31 Oct 2004) $
-#$LastChangedRevision: 42 $
-#$Id: mytemplate.pl 42 2004-10-31 14:16:14Z root $
+#!/usr/bin/perl
 
 use strict;
 use warnings;
-use Getopt::Long;    # processing command-line parameters
 use IOToolkit;
+use File::Basename;
 
 package main;
 use vars qw($getopt_loglevel $program $programname);
 
-$program = $0;    		# Script Name with path
-$program =~ m/\/(.+)/i;    	# Only the scriptname
-$programname = $1;
-$program =~ m/(.+)\.pl/i;    	# Without the extension
-$program = $1;
+my $program = basename($0);    
+$programname = $program;
+$programname =~ s/\.pl//g;
 
-my $logfilename = $program . ".log";
-my $VERSION     = '1.0.'.(qw$LastChangedRevision: 42 $)[-1];
+my $logfilename = $programname . ".log";
+my $VERSION = sprintf "%d.%05d", '$Revision:   1.4  $' =~ /(\d+)/g;
+my $description = "Script";
 
-my $description = "Framework for new scripts.";
-
-GetOptions("loglevel=s" => \$getopt_loglevel);
-
-if (!defined($getopt_loglevel))
-{
-    print "$description ($programname)\n";
-    print "Usage: \n$programname\n --loglevel=EMCDQ\n\n";
-#   die "You did not provide any parameters. The program ended here.\n\n";
-    $getopt_loglevel="all";
-}
+my $extra;
+my @extra_options = (
+  			{ 
+		  		Spec		=>  "extra=s",
+		  		Variable  	=> \$extra,
+		  		Help		=> "--extra=whatever",
+		  		Verbose		=> ["--extra=whatever",
+					    	    "whatever whenever...",
+				   	   	   ] 
+			},
+		    );
+		
+IOToolkit::commandline(@extra_options);
 
 logme("open", $logfilename);
 logme("M","$programname V$VERSION started --------------------------------------------------");
@@ -41,15 +38,17 @@ logme("close");
 
 1;
 
+__END__
+
 # Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
-mytemplate.pl
+script.pl
 
 =head1 SYNOPSIS
 
-./mytemplate.pl --loglevel=all
+./script.pl --loglevel=all
 
 =head1 ABSTRACT
 
@@ -79,5 +78,18 @@ Copyright 2004 by Markus Linke
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
+
+=head1 AMENDMENT HISTORY
+
+ $Log:   /hfx/var/pvcs/Murex/archives/pl/mytemplate.pl-arc  $
+# 
+#    Rev 1.4   05 Nov 2004 11:35:10   ml7tre
+# commandline changed
+# 
+#    Rev 1.3   05 Nov 2004 10:32:52   ml7tre
+# version changed
+# 
+#    Rev 1.2   29 Oct 2004 14:28:32   ml7tre
+# pvcs related changes
 
 =cut

@@ -1,5 +1,9 @@
 package IOToolkit;
 
+#$LastChangedDate: 2004-11-09 19:14:31 +0000 (Tue, 09 Nov 2004) $
+#$LastChangedRevision: 73 $
+#$Id: IOToolkit.pm 73 2004-11-09 19:14:31Z root $
+
 use 5.008;
 use strict;
 use warnings;
@@ -11,6 +15,8 @@ use English;
 use POSIX;
 use DirHandle;
 use Digest::MD5;
+use Getopt::Long;   
+use File::Basename;
 
 require Exporter;
 
@@ -25,11 +31,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-$VERSION     = '1.28.'.(qw$LastChangedRevision: 56 $)[-1];
-
-#$LastChangedDate: 2004-11-03 14:17:58 +0000 (Wed, 03 Nov 2004) $
-#$LastChangedRevision: 56 $
-#$Id: IOToolkit.pm 56 2004-11-03 14:17:58Z root $
+$VERSION = "1.".sprintf("%0.5f",30+((qw$LastChangedRevision: 73 $)[-1])/100000);
 
 
 sub logme
@@ -250,8 +252,6 @@ sub filelist {
           $dh->read( );              # read all entries
 }
 
-# --------------------------------------------------------------------------
-
 sub get_md5_checksum{
 
    # Desc: Returns MD5 checksum for given filename
@@ -263,6 +263,74 @@ sub get_md5_checksum{
    $md5->addfile($fh);
    close $fh;
    return $md5->hexdigest;
+}
+
+sub commandline {
+	my @extra_options = @_;
+	my $help;
+	my $verbose;
+	my @default_options = (
+		{ 
+		  Spec		=>  "loglevel=s",
+		  Variable  	=> \$main::getopt_loglevel,
+		  Help		=> "--loglevel=FEMSW-",
+		  Verbose	=> ["--loglevel=Which messages should be logged",
+		  				"F=FATAL",
+						"E=ERROR",
+						"M=MESSAGE",
+						"-=No output to STDOUT",
+						"all=Show all messages",
+						] 
+		},
+		{ 
+		  Spec		=>  "help!",
+		  Variable  	=> \$help,
+		  Help		=> "--help",
+		  Verbose	=> ["--help - Display Usage information and exit"]
+		},
+		{ 
+		  Spec		=>  "verbose!",
+		  Variable  	=> \$verbose,
+		  Help		=> "--verbose",
+		  Verbose	=> ["--verbose - Display more detailed Usage information and exit"]
+		},
+		);
+	my %options = ();
+	foreach my $o (@default_options, @extra_options) {
+		$options{$o->{Spec}} = $o->{Variable};
+	}
+	my $result = GetOptions(%options);
+	die("GetOptions failed: $!\n") unless $result;
+	if (defined($help) or defined($verbose)) {
+		my $usage = get_usage($verbose, @default_options, @extra_options);
+		print $usage;
+		exit(0);
+	}
+	
+	$main::getopt_loglevel="all" unless defined($main::getopt_loglevel);
+}
+
+sub get_usage {
+	my ($verbose, @opts) = @_;
+	my $filename = basename($0);
+	my $usage = "Usage: $filename ";
+	my @usage = ();
+	my $indent = " " x length($usage);
+
+	foreach my $opt (@opts) {
+		if ($verbose) {
+			my $firstline = 1;
+			foreach my $desc (@{ $opt->{Verbose} }) {
+				my $indent = $firstline ? "" : "\t";
+				push(@usage, "$indent$desc");
+				$firstline = 0;
+			}
+		}
+		else {
+				push(@usage, $opt->{Help});
+		}
+	}
+	return wantarray ? @usage : $usage.join("\n$indent", @usage)."\n";
 }
 
 
@@ -277,6 +345,12 @@ IOToolkit
 =head1 ABSTRACT
 
 IOToolkit - Perl extension to create logfiles
+
+=head1 IMPORTANT NOTICE
+
+The name of this module changed! All future versions will use the name IO::Toolkit
+
+http://search.cpan.org/search%3fmodule=IO::Toolkit
 
 =head1 PREREQUISITS
 
@@ -427,6 +501,16 @@ logme and gettimestamp are exported.
    http://www.linke.de for my personal homepage
    http://www.nmsalert.com for website monitoring solutions
    http://www.trackalizer.com for website visitor tracking and clickpath analysis
+   
+=head1 MAILING LIST
+
+You can join the IOToolkit mailing list by sending an email to:
+
+   iotoolkit-l-subscribe-request@listserv.it-projects.com   
+   
+=head1 Known Bugs
+
+Please report bugs at https://rt.cpan.org/NoAuth/ReportBug.html?Queue=iotoolkit
 
 =head1 AUTHOR
 

@@ -4,6 +4,12 @@ NAME
 ABSTRACT
     IOToolkit - Perl extension to create logfiles
 
+IMPORTANT NOTICE
+    The name of this module changed! All future versions will use the name
+    IO::Toolkit
+
+    http://search.cpan.org/search%3fmodule=IO::Toolkit
+
 PREREQUISITS
     This module needs Crypt::RC6 for its encryption/decryption routine.
     Digest::MD5 and DirHandle used for checksum routines.
@@ -144,6 +150,15 @@ SEE ALSO
        http://www.linke.de for my personal homepage
        http://www.nmsalert.com for website monitoring solutions
        http://www.trackalizer.com for website visitor tracking and clickpath analysis
+   
+MAILING LIST
+    You can join the IOToolkit mailing list by sending an email to:
+
+       iotoolkit-l-subscribe-request@listserv.it-projects.com   
+   
+Known Bugs
+    Please report bugs at
+    https://rt.cpan.org/NoAuth/ReportBug.html?Queue=iotoolkit
 
 AUTHOR
     Markus Linke, markus.linke@linke.de
