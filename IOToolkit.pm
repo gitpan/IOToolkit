@@ -130,6 +130,18 @@ Sample Script:
     logme("D","$programname V$version ended   --------------------------------------------------");
     logme("close");
 
+This displays and creates a logfile like this:
+
+    2004-09-09 10:23:57 [logging.pl] <D> logging.pl V1.00 started --------------------------------------------------
+    2004-09-09 10:23:57 [logging.pl] <M> This is a MESSAGE
+    2004-09-09 10:23:57 [logging.pl] <D> This is a DEBUG-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] <E> This is an ERROR-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] <Q> This is a SQL-QUERY-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] <C> This is a CONFIGURATION-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] <M> FATAL- and SYSTEM-MESSAGES (F/S) are always logged.
+    2004-09-09 10:23:57 [logging.pl] <M> If the loglevel parameter contains - no messages are displayed.
+    2004-09-09 10:23:57 [logging.pl] <D> logging.pl V1.00 ended   --------------------------------------------------
+
 =head1 ABSTRACT
 
 =head1 DESCRIPTION

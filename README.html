@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>IOToolkit - Perl extension to create logfiles</title>
+<link rev="made" href="mailto:root@localhost" />
+</head>
+
+<body style="background-color: white">
+
+<p><a name="__index__"></a></p>
+<!-- INDEX BEGIN -->
+
+<ul>
+
+	<li><a href="#name">NAME</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#abstract">ABSTRACT</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<ul>
+
+		<li><a href="#export">EXPORT</a></li>
+	</ul>
+
+	<li><a href="#see_also">SEE ALSO</a></li>
+	<li><a href="#author">AUTHOR</a></li>
+	<li><a href="#copyright_and_license">COPYRIGHT AND LICENSE</a></li>
+</ul>
+<!-- INDEX END -->
+
+<hr />
+<p>
+</p>
+<h1><a name="name">NAME</a></h1>
+<p>IOToolkit - Perl extension to create logfiles</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>Sample Script:</p>
+<pre>
+    use strict;
+    use warnings;
+    use Getopt::Long;                 # processing command-line parameters
+    use IOToolkit;</pre>
+<pre>
+    package main; 
+    use vars qw($getopt_loglevel $program $programname);</pre>
+<pre>
+    $program=&quot;logging&quot;;
+    $programname = $program.&quot;.pl&quot;;
+    my $logfilename = $program.&quot;.log&quot;;
+    my $version = &quot;1.00&quot;;
+    my $description = &quot;Logging-Sample&quot;;</pre>
+<pre>
+    GetOptions(&quot;loglevel=s&quot; =&gt; \$getopt_loglevel);</pre>
+<pre>
+    if (not(defined($getopt_loglevel))) {
+       print &quot;$description ($programname)\n&quot;;
+       print &quot;Usage: \n$programname\n --loglevel=EMCDQ\n\n&quot;;
+       die &quot;You did not provide any parameters. The program ended here.\n\n&quot;;
+    }</pre>
+<pre>
+    logme(&quot;open&quot;,$logfilename);
+    logme(&quot;D&quot;,&quot;$programname V$version started --------------------------------------------------&quot;);
+    logme(&quot;M&quot;,&quot;This is a MESSAGE&quot;);
+    logme(&quot;D&quot;,&quot;This is a DEBUG-MESSAGE&quot;);
+    logme(&quot;E&quot;,&quot;This is an ERROR-MESSAGE&quot;);
+    logme(&quot;Q&quot;,&quot;This is a SQL-QUERY-MESSAGE&quot;);
+    logme(&quot;C&quot;,&quot;This is a CONFIGURATION-MESSAGE&quot;);
+    logme(&quot;M&quot;,&quot;FATAL- and SYSTEM-MESSAGES (F/S) are always logged.&quot;);
+    logme(&quot;M&quot;,&quot;If the loglevel parameter contains - no messages are displayed.&quot;);
+    #logme(&quot;F&quot;,&quot;This is a FATAL-MESSAGE&quot;);
+    logme(&quot;D&quot;,&quot;$programname V$version ended   --------------------------------------------------&quot;);
+    logme(&quot;close&quot;);</pre>
+<p>This displays and creates a logfile like this:</p>
+<pre>
+    2004-09-09 10:23:57 [logging.pl] &lt;D&gt; logging.pl V1.00 started --------------------------------------------------
+    2004-09-09 10:23:57 [logging.pl] &lt;M&gt; This is a MESSAGE
+    2004-09-09 10:23:57 [logging.pl] &lt;D&gt; This is a DEBUG-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] &lt;E&gt; This is an ERROR-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] &lt;Q&gt; This is a SQL-QUERY-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] &lt;C&gt; This is a CONFIGURATION-MESSAGE
+    2004-09-09 10:23:57 [logging.pl] &lt;M&gt; FATAL- and SYSTEM-MESSAGES (F/S) are always logged.
+    2004-09-09 10:23:57 [logging.pl] &lt;M&gt; If the loglevel parameter contains - no messages are displayed.
+    2004-09-09 10:23:57 [logging.pl] &lt;D&gt; logging.pl V1.00 ended   --------------------------------------------------</pre>
+<p>
+</p>
+<hr />
+<h1><a name="abstract">ABSTRACT</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This module was written to provide an easy way to log messages. It
+checks for an option --loglevel=EMCDEQ- where each character stands 
+for a certain level. e.g.</p>
+<pre>
+   E=Error
+   S=System
+   M=Message
+   D=Debug
+   -=Silent</pre>
+<p>the minus (``-'') has a special meaning: supresses output to the screen and
+ONLY logs them to the file. Please see the sample script for more details.</p>
+<p>
+</p>
+<h2><a name="export">EXPORT</a></h2>
+<p>logme and gettimestamp are exported.</p>
+<p>
+</p>
+<hr />
+<h1><a name="see_also">SEE ALSO</a></h1>
+<p><a href="http://www.linke.de">http://www.linke.de</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="author">AUTHOR</a></h1>
+<p>Markus Linke, <a href="mailto:markus.linke@linke.de">markus.linke@linke.de</a></p>
+<p>
+</p>
+<hr />
+<h1><a name="copyright_and_license">COPYRIGHT AND LICENSE</a></h1>
+<p>Copyright 2004 by Markus Linke</p>
+<p>This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
+
+</p>
+
+</body>
+
+</html>
