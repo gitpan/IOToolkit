@@ -2,7 +2,7 @@ NAME
     IOToolkit
 
 VERSION
-    $Revision: 1.21 $
+    $Revision: 1.22 $
 
 SYNOPSIS
     Sample Script:
@@ -88,11 +88,14 @@ DESCRIPTION
     for the logfile. If you specifiy the format &gettimestamp("filename") it
     returns something like this: 20041009131500
 
-    IOToolkit::moduleinfo prints a list of loaded modules.
+  IOToolkit::moduleinfo
+    prints a list of loaded modules.
 
-    IOToolkit::trim trims a variable.
+  IOToolkit::trim
+    trims a variable.
 
-    IOToolkit::hash2sql creates SQL code to insert a hash into a table.
+  IOToolkit::hash2sql
+    creates SQL code to insert a hash into a table.
 
     Example:
 
@@ -107,7 +110,7 @@ DESCRIPTION
    
     Result:
 
-       insert (firstname,lastname) values ("Markus","Linke") into tablename
+       insert into tablename (firstname,lastname) values ("Markus","Linke") 
 
     IOToolkit::sql2data executes SQL statement and creates a array of hashs
 
@@ -115,7 +118,7 @@ DESCRIPTION
        use Data::Dumper;
        print Dumper(IOToolkit::sql2data($dbh,"select * from environments"));
 
-  EXPORT
+EXPORT
     logme and gettimestamp are exported.
 
 SEE ALSO
@@ -134,6 +137,9 @@ COPYRIGHT AND LICENSE
 
 AMENDMENT HISTORY
      $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+    # 
+    #    Rev 1.22   29 Oct 2004 09:34:58   ml7tre
+    # sql2data fixed
     # 
     #    Rev 1.21   29 Oct 2004 08:01:14   ml7tre
     # pvcs change

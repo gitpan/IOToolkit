@@ -20,7 +20,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT  = qw(&logme &gettimestamp);
-our $VERSION = '$Revision:   1.21  $';
+our $VERSION = '$Revision:   1.22  $';
 
 sub logme {
 
@@ -134,16 +134,16 @@ sub sql2data {
    } else 
    {
       foreach my $row (@$ary_ref) {
-         my %hashrow;
+         my $hashrow={};
          my $i=0; 
          while ($i < $num_of_fields) {
             if (defined(@$row[$i])) {
-               $hashrow{$field_names[$i]}=@$row[$i];
+	       $hashrow->{$field_names[$i]} = @$row[$i];
    	    } else {
 	    }
             $i++;
          }
-         push @resultlist,%hashrow;
+         push @resultlist,$hashrow;
       }
    }
 
@@ -171,7 +171,7 @@ IOToolkit
 
 =head1 VERSION
 
-$Revision:   1.21  $
+$Revision:   1.22  $
 
 =head1 SYNOPSIS
 
@@ -257,11 +257,17 @@ The function gettimestamp returns the current time in the format used for the lo
 If you specifiy the format &gettimestamp("filename") it returns something like
 this: 20041009131500
 
-IOToolkit::moduleinfo prints a list of loaded modules.
+=head2 IOToolkit::moduleinfo 
 
-IOToolkit::trim trims a variable.
+prints a list of loaded modules.
 
-IOToolkit::hash2sql creates SQL code to insert a hash into a table.
+=head2 IOToolkit::trim 
+
+trims a variable.
+
+=head2 IOToolkit::hash2sql 
+
+creates SQL code to insert a hash into a table.
 
 Example:
 
@@ -276,7 +282,7 @@ Example:
    
 Result:
 
-   insert (firstname,lastname) values ("Markus","Linke") into tablename
+   insert into tablename (firstname,lastname) values ("Markus","Linke") 
 
 IOToolkit::sql2data executes SQL statement and creates a array of hashs
 
@@ -285,7 +291,7 @@ IOToolkit::sql2data executes SQL statement and creates a array of hashs
    print Dumper(IOToolkit::sql2data($dbh,"select * from environments"));
 
 
-=head2 EXPORT
+=head1 EXPORT
 
 logme and gettimestamp are exported.
 
@@ -309,6 +315,9 @@ it under the same terms as Perl itself.
 =head1 AMENDMENT HISTORY
 
  $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+# 
+#    Rev 1.22   29 Oct 2004 09:34:58   ml7tre
+# sql2data fixed
 # 
 #    Rev 1.21   29 Oct 2004 08:01:14   ml7tre
 # pvcs change

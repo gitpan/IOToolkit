@@ -19,9 +19,12 @@
 	<li><a href="#description">DESCRIPTION</a></li>
 	<ul>
 
-		<li><a href="#export">EXPORT</a></li>
+		<li><a href="#iotoolkit::moduleinfo">IOToolkit::moduleinfo</a></li>
+		<li><a href="#iotoolkit::trim">IOToolkit::trim</a></li>
+		<li><a href="#iotoolkit::hash2sql">IOToolkit::hash2sql</a></li>
 	</ul>
 
+	<li><a href="#export">EXPORT</a></li>
 	<li><a href="#see_also">SEE ALSO</a></li>
 	<li><a href="#author">AUTHOR</a></li>
 	<li><a href="#copyright_and_license">COPYRIGHT AND LICENSE</a></li>
@@ -38,7 +41,7 @@
 </p>
 <hr />
 <h1><a name="version">VERSION</a></h1>
-<p>$Revision:   1.21  $</p>
+<p>$Revision:   1.22  $</p>
 <p>
 </p>
 <hr />
@@ -121,9 +124,18 @@ ONLY logs them to the file. Please see the sample script for more details.</p>
 <p>The function gettimestamp returns the current time in the format used for the logfile. 
 If you specifiy the format &amp;gettimestamp(``filename'') it returns something like
 this: 20041009131500</p>
-<p>IOToolkit::moduleinfo prints a list of loaded modules.</p>
-<p>IOToolkit::trim trims a variable.</p>
-<p>IOToolkit::hash2sql creates SQL code to insert a hash into a table.</p>
+<p>
+</p>
+<h2><a name="iotoolkit::moduleinfo">IOToolkit::moduleinfo</a></h2>
+<p>prints a list of loaded modules.</p>
+<p>
+</p>
+<h2><a name="iotoolkit::trim">IOToolkit::trim</a></h2>
+<p>trims a variable.</p>
+<p>
+</p>
+<h2><a name="iotoolkit::hash2sql">IOToolkit::hash2sql</a></h2>
+<p>creates SQL code to insert a hash into a table.</p>
 <p>Example:</p>
 <pre>
    use IOToolkit;</pre>
@@ -137,7 +149,7 @@ this: 20041009131500</p>
    
 Result:</pre>
 <pre>
-   insert (firstname,lastname) values (&quot;Markus&quot;,&quot;Linke&quot;) into tablename</pre>
+   insert into tablename (firstname,lastname) values (&quot;Markus&quot;,&quot;Linke&quot;)</pre>
 <p>IOToolkit::sql2data executes SQL statement and creates a array of hashs</p>
 <pre>
    use IOToolkit;
@@ -145,7 +157,8 @@ Result:</pre>
    print Dumper(IOToolkit::sql2data($dbh,&quot;select * from environments&quot;));</pre>
 <p>
 </p>
-<h2><a name="export">EXPORT</a></h2>
+<hr />
+<h1><a name="export">EXPORT</a></h1>
 <p>logme and gettimestamp are exported.</p>
 <p>
 </p>
@@ -173,6 +186,9 @@ it under the same terms as Perl itself.</p>
 <h1><a name="amendment_history">AMENDMENT HISTORY</a></h1>
 <pre>
  $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+# 
+#    Rev 1.22   29 Oct 2004 09:34:58   ml7tre
+# sql2data fixed
 # 
 #    Rev 1.21   29 Oct 2004 08:01:14   ml7tre
 # pvcs change
