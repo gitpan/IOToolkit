@@ -1,16 +1,1 @@
-Revision history for Perl extension IOToolkit.
-
-1.9   Thu Oct  7 10:01:09 2004
-	- first release version
-		-AXn IOToolkit
-1.10  Fri Oct  8 10:01:09 2004
-	- Bugfix
-
-1.12  Mon Oct 18 10:01:09 2004
-	- Bugfix
-
-1.12.3 20041028
-       hash2sql added.
-
-1.13   20041028
-       sql2data added.
+Changes are now listed as part of the POD documentation.

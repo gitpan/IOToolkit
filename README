@@ -1,6 +1,9 @@
 NAME
     IOToolkit
 
+VERSION
+    $Revision: 1.21 $
+
 SYNOPSIS
     Sample Script:
 
@@ -104,7 +107,6 @@ DESCRIPTION
    
     Result:
 
-       !> ./hash2sql.pl
        insert (firstname,lastname) values ("Markus","Linke") into tablename
 
     IOToolkit::sql2data executes SQL statement and creates a array of hashs
@@ -117,9 +119,9 @@ DESCRIPTION
     logme and gettimestamp are exported.
 
 SEE ALSO
-    http://www.linke.de for my personal homepage http://www.nmsalert.com for
-    website monitoring solutions http://www.trackalizer.com for website
-    visitor tracking and clickpath analysis
+       http://www.linke.de for my personal homepage
+       http://www.nmsalert.com for website monitoring solutions
+       http://www.trackalizer.com for website visitor tracking and clickpath analysis
 
 AUTHOR
     Markus Linke, markus.linke@linke.de
@@ -129,4 +131,16 @@ COPYRIGHT AND LICENSE
 
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
+
+AMENDMENT HISTORY
+     $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+    # 
+    #    Rev 1.21   29 Oct 2004 08:01:14   ml7tre
+    # pvcs change
+    # 
+    #    Rev 1.20   29 Oct 2004 07:59:30   ml7tre
+    # Debugging Lines removed
+    # 
+    #    Rev 1.19   29 Oct 2004 07:52:28   ml7tre
+    # version control changes
 

@@ -6,7 +6,6 @@ use warnings;
 
 use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS $VERSION);
 use base qw(Exporter);
-
 require Exporter;
 
 our @ISA         = qw(Exporter);
@@ -21,7 +20,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT  = qw(&logme &gettimestamp);
-our $VERSION = '1.13';
+our $VERSION = '$Revision:   1.21  $';
 
 sub logme {
 
@@ -112,7 +111,7 @@ sub hash2sqlinsert {
       push @values, $hash{$a};
    }
     
-   return "insert (".join(",",@fields).") values (\'".join("\',\'",@values)."\') into $table;";
+   return "insert into $table (".join(",",@fields).") values (\'".join("\',\'",@values)."\')";
 }
 
 sub sql2data {
@@ -151,6 +150,17 @@ sub sql2data {
    return @resultlist;
 }
 
+sub dosql {
+   my $locdbh=$_[0];
+   my $locsql=$_[1];
+   my $locsth = $locdbh->prepare_cached($locsql);
+   my $ret=$locsth->execute;
+   if (not $ret eq 1) {
+      logme("E",$ret);
+   }
+   return $ret;
+}
+
 1;
 
 __END__
@@ -158,6 +168,10 @@ __END__
 =head1 NAME
 
 IOToolkit
+
+=head1 VERSION
+
+$Revision:   1.21  $
 
 =head1 SYNOPSIS
 
@@ -262,7 +276,6 @@ Example:
    
 Result:
 
-   !> ./hash2sql.pl
    insert (firstname,lastname) values ("Markus","Linke") into tablename
 
 IOToolkit::sql2data executes SQL statement and creates a array of hashs
@@ -278,9 +291,9 @@ logme and gettimestamp are exported.
 
 =head1 SEE ALSO
 
-http://www.linke.de for my personal homepage
-http://www.nmsalert.com for website monitoring solutions
-http://www.trackalizer.com for website visitor tracking and clickpath analysis
+   http://www.linke.de for my personal homepage
+   http://www.nmsalert.com for website monitoring solutions
+   http://www.trackalizer.com for website visitor tracking and clickpath analysis
 
 =head1 AUTHOR
 
@@ -292,6 +305,19 @@ Copyright 2003-2004 by Markus Linke
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
+
+=head1 AMENDMENT HISTORY
+
+ $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+# 
+#    Rev 1.21   29 Oct 2004 08:01:14   ml7tre
+# pvcs change
+# 
+#    Rev 1.20   29 Oct 2004 07:59:30   ml7tre
+# Debugging Lines removed
+# 
+#    Rev 1.19   29 Oct 2004 07:52:28   ml7tre
+# version control changes
 
 =cut
 
