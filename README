@@ -2,7 +2,13 @@ NAME
     IOToolkit
 
 VERSION
-    $Revision: 1.22 $
+    $Revision: 1.26 $
+
+ABSTRACT
+    IOToolkit - Perl extension to create logfiles
+
+PREREQUISITS
+    This module needs Crypt::RC6 for its encryption/decryption routine.
 
 SYNOPSIS
     Sample Script:
@@ -58,9 +64,6 @@ SYNOPSIS
         2004-09-09 10:23:57 [logging.pl] <M> FATAL- and SYSTEM-MESSAGES (F/S) are always logged.
         2004-09-09 10:23:57 [logging.pl] <M> If the loglevel parameter contains - no messages are displayed.
         2004-09-09 10:23:57 [logging.pl] <D> logging.pl V1.00 ended   --------------------------------------------------
-
-ABSTRACT
-    IOToolkit - Perl extension to create logfiles
 
 DESCRIPTION
     Provides a human-readable logfile and is ment to replace "print" and
@@ -118,6 +121,10 @@ DESCRIPTION
        use Data::Dumper;
        print Dumper(IOToolkit::sql2data($dbh,"select * from environments"));
 
+  IOToolkit::encrypt and IOToolkit::decrypt
+    needs two strings as parameters (e.g. seed and password) and returns an
+    encrypted/decrypted value.
+
 EXPORT
     logme and gettimestamp are exported.
 
@@ -137,6 +144,18 @@ COPYRIGHT AND LICENSE
 
 AMENDMENT HISTORY
      $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+    # 
+    #    Rev 1.26   29 Oct 2004 12:33:58   ml7tre
+    # minor changes
+    # 
+    #    Rev 1.25   29 Oct 2004 12:21:20   ml7tre
+    # perltidy
+    # 
+    #    Rev 1.24   29 Oct 2004 12:00:06   ml7tre
+    # decryption added
+    # 
+    #    Rev 1.23   29 Oct 2004 11:25:58   ml7tre
+    # encryption added
     # 
     #    Rev 1.22   29 Oct 2004 09:34:58   ml7tre
     # sql2data fixed

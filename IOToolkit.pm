@@ -6,32 +6,37 @@ use warnings;
 
 use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS $VERSION);
 use base qw(Exporter);
+use Crypt::RC6;
+use English;
+
 require Exporter;
 
-our @ISA         = qw(Exporter);
+our @ISA = qw(Exporter);
 our %EXPORT_TAGS = (
     'all' => [
         qw(
 
           )
-    ]
-);
+    ]);
 
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
+our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-our $VERSION = '$Revision:   1.22  $';
+our $VERSION = sprintf "%d.%02d", '$Revision:   1.26  $' =~ /(\d+)/g;
 
-sub logme {
+sub logme
+{
 
     my $severity = $_[0];
     my $message  = $_[1];
 
-    if ( $severity eq "open" ) {
+    if ($severity eq "open")
+    {
 
-        if ( !defined($message) ) {   		# If no filename is provided, use defaults
-            my $program = $0;         		# Script Name with path
-            $program =~ m/\/(.+)\.pl/i;    	# Without leading path and extension
+        if (!defined($message))
+        {    # If no filename is provided, use defaults
+            my $program = $0;    # Script Name with path
+            $program =~ m/\/(.+)\.pl/i;    # Without leading path and extension
             my $logfilename = $1 . ".log";
             $message = $logfilename;
         }
@@ -39,54 +44,63 @@ sub logme {
         open LOGFILE, ">>$message"
           or die "*** Fatal Error: Logfile $message cannot be opened.";
     }
-    elsif ( $severity eq "close" ) {
+    elsif ($severity eq "close")
+    {
         close LOGFILE or die "*** Fatal Error: Logfile cannot be closed.";
     }
 
-    elsif (( $main::getopt_loglevel =~ m/$severity/ )
-        || ( $main::getopt_loglevel eq "all" ) )
+    elsif (   ($main::getopt_loglevel =~ m/$severity/)
+           || ($main::getopt_loglevel eq "all"))
     {
         my $timestamp = &gettimestamp();
         my $line = "$timestamp [$main::programname] <$severity> $message\n";
-        if ( not $main::getopt_loglevel =~ m/-/ ) { print $line; }
+        if (not $main::getopt_loglevel =~ m/-/) { print $line; }
         print LOGFILE $line;
     }
 
-    if ( ( $severity eq "E" ) || ( $severity eq "F" ) ) {
+    if (($severity eq "E") || ($severity eq "F"))
+    {
         $main::error_occured++;
     }
 
-    if ( $severity eq "F" ) {
+    if ($severity eq "F")
+    {
         close LOGFILE;
         die "\n*** Fatal Error: $_[1]\n\n";
     }
     return 1;
 }
 
-sub gettimestamp {
+sub gettimestamp
+{
     my $format = $_[0];
-    my ( $sec, $min, $hour, $mday, $mon, $year ) = localtime;
+    my ($sec, $min, $hour, $mday, $mon, $year) = localtime;
     $year = $year + 1900;
     $mon  = $mon + 1;
-    if ( $mon < 10 )  { $mon  = "0" . $mon; }
-    if ( $mday < 10 ) { $mday = "0" . $mday; }
-    if ( $hour < 10 ) { $hour = "0" . $hour; }
-    if ( $min < 10 )  { $min  = "0" . $min; }
-    if ( $sec < 10 )  { $sec  = "0" . $sec; }
-    if ( defined($format) ) {
+    if ($mon < 10)  { $mon  = "0" . $mon; }
+    if ($mday < 10) { $mday = "0" . $mday; }
+    if ($hour < 10) { $hour = "0" . $hour; }
+    if ($min < 10)  { $min  = "0" . $min; }
+    if ($sec < 10)  { $sec  = "0" . $sec; }
+    if (defined($format))
+    {
 
-        if ( $format eq "filename" ) {
+        if ($format eq "filename")
+        {
             return "$year" . "$mon" . "$mday" . "$hour" . "$min" . "$sec";
         }
     }
-    else {
+    else
+    {
         return "$year-$mon-$mday $hour:$min:$sec";
     }
 }
 
-sub trim {
+sub trim
+{
     my @out = @_;
-    for (@out) {
+    for (@out)
+    {
         s/^\s+//;    # trim left
         s/\s+$//;    # trim right
     }
@@ -95,70 +109,119 @@ sub trim {
       : @out;        # or many
 }
 
-sub moduleinfo {
-    print "Directories searched:\n\t", join( "\n\t" => @INC ),
-      "\nModules loaded:\n\t", join( "\n\t" => sort values %INC ), "\n";
+sub moduleinfo
+{
+    print "Directories searched:\n\t", join("\n\t" => @INC),
+      "\nModules loaded:\n\t", join("\n\t" => sort values %INC), "\n";
     return 1;
 }
 
-sub hash2sqlinsert {
-   my $table=shift;
-   my %hash=@_;
-   my @fields = sort keys %hash;
-   my @values;
-   
-   foreach $a (sort keys %hash) {
-      push @values, $hash{$a};
-   }
-    
-   return "insert into $table (".join(",",@fields).") values (\'".join("\',\'",@values)."\')";
+sub hash2sqlinsert
+{
+    my $table  = shift;
+    my %hash   = @_;
+    my @fields = sort keys %hash;
+    my @values;
+
+    foreach $a (sort keys %hash)
+    {
+        push @values, $hash{$a};
+    }
+
+    return "insert into $table ("
+      . join(",", @fields)
+      . ") values (\'"
+      . join("\',\'", @values) . "\')";
 }
 
-sub sql2data {
-   my $localdbh=$_[0];
-   my $sql=$_[1];
+sub sql2data
+{
+    my $localdbh = $_[0];
+    my $sql      = $_[1];
 
-   my $sth = $localdbh->prepare($sql);
-   my $rc  = $sth->execute;
+    my $sth = $localdbh->prepare($sql);
+    my $rc  = $sth->execute;
 
-   my $num_of_fields = $sth->{NUM_OF_FIELDS};
-   my @field_names=@{ $sth->{NAME} };
+    my $num_of_fields = $sth->{NUM_OF_FIELDS}
+      or logme("E", "Cannot get number of columns. SQL Syntax error?");
+    my @field_names = @{$sth->{NAME}} or logme("E", "Cannot get column names");
 
-   my $ary_ref = $sth->fetchall_arrayref();
-   my $total_rows=@$ary_ref;
-   
-   my @resultlist;
+    my $ary_ref = $sth->fetchall_arrayref() or logme("E", "Cannot fetch data");
+    my $total_rows = @$ary_ref;
 
-   if ($@) {
-      logme("F","Database Error: Unable to get data $localdbh->errstr");
-   } else 
-   {
-      foreach my $row (@$ary_ref) {
-         my $hashrow={};
-         my $i=0; 
-         while ($i < $num_of_fields) {
-            if (defined(@$row[$i])) {
-	       $hashrow->{$field_names[$i]} = @$row[$i];
-   	    } else {
-	    }
-            $i++;
-         }
-         push @resultlist,$hashrow;
-      }
-   }
+    my @resultlist;
 
-   return @resultlist;
+    if ($@)
+    {
+        logme("F", "Database Error: Unable to get data $localdbh->errstr");
+    }
+    else
+    {
+        foreach my $row (@$ary_ref)
+        {
+            my $hashrow = {};
+            my $i       = 0;
+            while ($i < $num_of_fields)
+            {
+                if (defined(@$row[$i]))
+                {
+                    $hashrow->{$field_names[$i]} = @$row[$i];
+                }
+                else
+                {
+                }
+                $i++;
+            }
+            push @resultlist, $hashrow;
+        }
+    }
+
+    return @resultlist;
 }
 
-sub dosql {
-   my $locdbh=$_[0];
-   my $locsql=$_[1];
-   my $locsth = $locdbh->prepare_cached($locsql);
-   my $ret=$locsth->execute;
-   if (not $ret eq 1) {
-      logme("E",$ret);
-   }
-   return $ret;
+sub dosql
+{
+    my $locdbh = $_[0];
+    my $locsql = $_[1];
+    my $locsth = $locdbh->prepare_cached($locsql);
+    my $ret    = $locsth->execute;
+    if (not $ret eq 1)
+    {
+        logme("E", "Database error: " . $locdbh->errstr);
+    }
+    return $ret;
+}
+
+sub encrypt
+{
+    my $suppliedseed = shift or die "Usage: <seed> <password>\n";
+    my $pwd          = shift or die "Usage: <seed> <password>\n";
+    my $seed     = sprintf("%-8.8s", $suppliedseed);
+    my $password = sprintf("%-16s",  $pwd);
+    my $key      = "";
+    map { $key .= sprintf("%02lx", ord($_)); } split("", $seed);
+    my $cipher             = new Crypt::RC6 $key;
+    my $ciphertext         = $cipher->encrypt($password);
+    my $encrypted_password = "";
+    map { $encrypted_password .= sprintf("%02lx", ord($_)) }
+      split("", $ciphertext);
+    return $encrypted_password;
+}
+
+sub decrypt
+{
+    my $seed  = shift;
+    my $crypt = shift;
+    $seed = sprintf("%-8.8s", $seed);
+    my $key = "";
+    map { $key .= sprintf("%02lx", ord($_)); } split("", $seed);
+    my $cipher = new Crypt::RC6 $key;
+    my $ep     = "";
+
+    while ($crypt =~ m/../g) { $ep .= chr(hex($MATCH)); }
+    my $pwd = $cipher->decrypt($ep);
+    $pwd =~ s/\s//g;
+    return $pwd;
 }
 
 1;
@@ -171,7 +234,15 @@ IOToolkit
 
 =head1 VERSION
 
-$Revision:   1.22  $
+$Revision:   1.26  $
+
+=head1 ABSTRACT
+
+IOToolkit - Perl extension to create logfiles
+
+=head1 PREREQUISITS
+
+This module needs Crypt::RC6 for its encryption/decryption routine.
 
 =head1 SYNOPSIS
 
@@ -228,10 +299,6 @@ This displays and creates a logfile like this:
     2004-09-09 10:23:57 [logging.pl] <M> FATAL- and SYSTEM-MESSAGES (F/S) are always logged.
     2004-09-09 10:23:57 [logging.pl] <M> If the loglevel parameter contains - no messages are displayed.
     2004-09-09 10:23:57 [logging.pl] <D> logging.pl V1.00 ended   --------------------------------------------------
-
-=head1 ABSTRACT
-
-IOToolkit - Perl extension to create logfiles
 
 =head1 DESCRIPTION
 
@@ -291,6 +358,11 @@ IOToolkit::sql2data executes SQL statement and creates a array of hashs
    print Dumper(IOToolkit::sql2data($dbh,"select * from environments"));
 
 
+=head2 IOToolkit::encrypt and IOToolkit::decrypt
+
+needs two strings as parameters (e.g. seed and password) and returns an
+encrypted/decrypted value.
+
 =head1 EXPORT
 
 logme and gettimestamp are exported.
@@ -315,6 +387,18 @@ it under the same terms as Perl itself.
 =head1 AMENDMENT HISTORY
 
  $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+# 
+#    Rev 1.26   29 Oct 2004 12:33:58   ml7tre
+# minor changes
+# 
+#    Rev 1.25   29 Oct 2004 12:21:20   ml7tre
+# perltidy
+# 
+#    Rev 1.24   29 Oct 2004 12:00:06   ml7tre
+# decryption added
+# 
+#    Rev 1.23   29 Oct 2004 11:25:58   ml7tre
+# encryption added
 # 
 #    Rev 1.22   29 Oct 2004 09:34:58   ml7tre
 # sql2data fixed

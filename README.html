@@ -14,14 +14,16 @@
 
 	<li><a href="#name">NAME</a></li>
 	<li><a href="#version">VERSION</a></li>
-	<li><a href="#synopsis">SYNOPSIS</a></li>
 	<li><a href="#abstract">ABSTRACT</a></li>
+	<li><a href="#prerequisits">PREREQUISITS</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
 	<li><a href="#description">DESCRIPTION</a></li>
 	<ul>
 
 		<li><a href="#iotoolkit::moduleinfo">IOToolkit::moduleinfo</a></li>
 		<li><a href="#iotoolkit::trim">IOToolkit::trim</a></li>
 		<li><a href="#iotoolkit::hash2sql">IOToolkit::hash2sql</a></li>
+		<li><a href="#iotoolkit::encrypt_and_iotoolkit::decrypt">IOToolkit::encrypt and IOToolkit::decrypt</a></li>
 	</ul>
 
 	<li><a href="#export">EXPORT</a></li>
@@ -41,7 +43,17 @@
 </p>
 <hr />
 <h1><a name="version">VERSION</a></h1>
-<p>$Revision:   1.22  $</p>
+<p>$Revision:   1.26  $</p>
+<p>
+</p>
+<hr />
+<h1><a name="abstract">ABSTRACT</a></h1>
+<p>IOToolkit - Perl extension to create logfiles</p>
+<p>
+</p>
+<hr />
+<h1><a name="prerequisits">PREREQUISITS</a></h1>
+<p>This module needs Crypt::RC6 for its encryption/decryption routine.</p>
 <p>
 </p>
 <hr />
@@ -101,11 +113,6 @@
 <p>
 </p>
 <hr />
-<h1><a name="abstract">ABSTRACT</a></h1>
-<p>IOToolkit - Perl extension to create logfiles</p>
-<p>
-</p>
-<hr />
 <h1><a name="description">DESCRIPTION</a></h1>
 <p>Provides a human-readable logfile and is ment to replace ``print'' and ``die'' in your programs.</p>
 <p>This module was written to provide an easy way to log messages. It
@@ -157,6 +164,11 @@ Result:</pre>
    print Dumper(IOToolkit::sql2data($dbh,&quot;select * from environments&quot;));</pre>
 <p>
 </p>
+<h2><a name="iotoolkit::encrypt_and_iotoolkit::decrypt">IOToolkit::encrypt and IOToolkit::decrypt</a></h2>
+<p>needs two strings as parameters (e.g. seed and password) and returns an
+encrypted/decrypted value.</p>
+<p>
+</p>
 <hr />
 <h1><a name="export">EXPORT</a></h1>
 <p>logme and gettimestamp are exported.</p>
@@ -187,6 +199,18 @@ it under the same terms as Perl itself.</p>
 <pre>
  $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
 # 
+#    Rev 1.26   29 Oct 2004 12:33:58   ml7tre
+# minor changes
+# 
+#    Rev 1.25   29 Oct 2004 12:21:20   ml7tre
+# perltidy
+# 
+#    Rev 1.24   29 Oct 2004 12:00:06   ml7tre
+# decryption added
+# 
+#    Rev 1.23   29 Oct 2004 11:25:58   ml7tre
+# encryption added
+# 
 #    Rev 1.22   29 Oct 2004 09:34:58   ml7tre
 # sql2data fixed
 # 
@@ -197,9 +221,7 @@ it under the same terms as Perl itself.</p>
 # Debugging Lines removed
 # 
 #    Rev 1.19   29 Oct 2004 07:52:28   ml7tre
-# version control changes
-
-</pre>
+# version control changes</pre>
 
 </body>
 
