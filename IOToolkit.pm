@@ -23,7 +23,12 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-our $VERSION = sprintf "%d.%02d", '$Revision:   1.28  $' =~ /(\d+)/g;
+$VERSION     = '1.28.'.(qw$LastChangedRevision: 18 $)[-1];
+
+#$LastChangedDate: 2004-10-30 17:27:44 +0100 (Sat, 30 Oct 2004) $
+#$LastChangedRevision: 18 $
+#$Id: IOToolkit.pm 18 2004-10-30 16:27:44Z root $
+
 
 sub logme
 {
@@ -374,38 +379,6 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =head1 AMENDMENT HISTORY
-
- $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
-# 
-#    Rev 1.28   29 Oct 2004 13:34:40   ml7tre
-# bugfix
-# 
-#    Rev 1.27   29 Oct 2004 13:33:00   ml7tre
-# gettimestamp updated (now uses POSIX)
-# 
-#    Rev 1.26   29 Oct 2004 12:33:58   ml7tre
-# minor changes
-# 
-#    Rev 1.25   29 Oct 2004 12:21:20   ml7tre
-# perltidy
-# 
-#    Rev 1.24   29 Oct 2004 12:00:06   ml7tre
-# decryption added
-# 
-#    Rev 1.23   29 Oct 2004 11:25:58   ml7tre
-# encryption added
-# 
-#    Rev 1.22   29 Oct 2004 09:34:58   ml7tre
-# sql2data fixed
-# 
-#    Rev 1.21   29 Oct 2004 08:01:14   ml7tre
-# pvcs change
-# 
-#    Rev 1.20   29 Oct 2004 07:59:30   ml7tre
-# Debugging Lines removed
-# 
-#    Rev 1.19   29 Oct 2004 07:52:28   ml7tre
-# version control changes
 
 =cut
 
