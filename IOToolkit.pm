@@ -9,6 +9,8 @@ use base qw(Exporter);
 use Crypt::RC6;
 use English;
 use POSIX;
+use DirHandle;
+use Digest::MD5;
 
 require Exporter;
 
@@ -23,11 +25,11 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-$VERSION     = '1.28.'.(qw$LastChangedRevision: 45 $)[-1];
+$VERSION     = '1.28.'.(qw$LastChangedRevision: 56 $)[-1];
 
-#$LastChangedDate: 2004-10-31 16:21:24 +0000 (Sun, 31 Oct 2004) $
-#$LastChangedRevision: 45 $
-#$Id: IOToolkit.pm 45 2004-10-31 16:21:24Z root $
+#$LastChangedDate: 2004-11-03 14:17:58 +0000 (Wed, 03 Nov 2004) $
+#$LastChangedRevision: 56 $
+#$Id: IOToolkit.pm 56 2004-11-03 14:17:58Z root $
 
 
 sub logme
@@ -180,11 +182,7 @@ sub dosql
     my $locdbh = $_[0];
     my $locsql = $_[1];
     my $locsth = $locdbh->prepare_cached($locsql);
-    my $ret    = $locsth->execute;
-    if (not $ret eq 1)
-    {
-        logme("E", "Database error: " . $locdbh->errstr);
-    }
+    my $ret    = $locsth->execute or logme("E", "Database error: " . $locdbh->errstr);;
     return $ret;
 }
 
@@ -238,6 +236,36 @@ sub pid {
    }
 }
 
+sub filelist {
+
+   # Desc: Filelist returns a list of files in a directory
+   # Para: Directory
+
+   my $dir = shift;
+   my $dh = DirHandle->new($dir)   or die "can't opendir $dir: $!";
+   return sort                       # sort pathnames
+#         grep { -f   }              # -l links -f files
+          map  { "$dir/$_" }         # create full paths
+          grep {  !/^\./   }         # filter out dot files
+          $dh->read( );              # read all entries
+}
+
+# --------------------------------------------------------------------------
+
+sub get_md5_checksum{
+
+   # Desc: Returns MD5 checksum for given filename
+
+   my $filename=$_[0];
+   my $md5 = Digest::MD5->new;
+   open(my $fh, "< $filename") or die "cant open file $filename";
+   $md5->reset;
+   $md5->addfile($fh);
+   close $fh;
+   return $md5->hexdigest;
+}
+
+
 1;
 
 __END__
@@ -253,6 +281,7 @@ IOToolkit - Perl extension to create logfiles
 =head1 PREREQUISITS
 
 This module needs Crypt::RC6 for its encryption/decryption routine.
+Digest::MD5 and DirHandle used for checksum routines.
 
 =head1 SYNOPSIS
 
@@ -385,6 +414,10 @@ encrypted/decrypted value.
 Create or delete PID file. If set to exclusive, the program dies if the 
 file already exists. 
 
+=head2 my $md5 = IOToolkit::get_md5_checksum("IOToolkit.pm");
+
+Create a MD5 checksum for the filename provided.
+
 =head1 EXPORT
 
 logme and gettimestamp are exported.
@@ -405,8 +438,6 @@ Copyright 2003-2004 by Markus Linke
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
-
-=head1 AMENDMENT HISTORY
 
 =cut
 

@@ -25,13 +25,13 @@
 		<li><a href="#iotoolkit::hash2sql">IOToolkit::hash2sql</a></li>
 		<li><a href="#iotoolkit::encrypt_and_iotoolkit::decrypt">IOToolkit::encrypt and IOToolkit::decrypt</a></li>
 		<li><a href="#iotoolkit::pid(exclusive|overwrite|remove,/tmp/filename.pid);">IOToolkit::pid(``exclusive|overwrite|remove'',``/tmp/filename.pid'');</a></li>
+		<li><a href="#my_$md5_=_iotoolkit::get_md5_checksum(iotoolkit.pm);">my $md5 = IOToolkit::get_md5_checksum(``IOToolkit.pm'');</a></li>
 	</ul>
 
 	<li><a href="#export">EXPORT</a></li>
 	<li><a href="#see_also">SEE ALSO</a></li>
 	<li><a href="#author">AUTHOR</a></li>
 	<li><a href="#copyright_and_license">COPYRIGHT AND LICENSE</a></li>
-	<li><a href="#amendment_history">AMENDMENT HISTORY</a></li>
 </ul>
 <!-- INDEX END -->
 
@@ -49,7 +49,8 @@
 </p>
 <hr />
 <h1><a name="prerequisits">PREREQUISITS</a></h1>
-<p>This module needs Crypt::RC6 for its encryption/decryption routine.</p>
+<p>This module needs Crypt::RC6 for its encryption/decryption routine.
+Digest::MD5 and DirHandle used for checksum routines.</p>
 <p>
 </p>
 <hr />
@@ -176,6 +177,10 @@ encrypted/decrypted value.</p>
 file already exists.</p>
 <p>
 </p>
+<h2><a name="my_$md5_=_iotoolkit::get_md5_checksum(iotoolkit.pm);">my $md5 = IOToolkit::get_md5_checksum(``IOToolkit.pm'');</a></h2>
+<p>Create a MD5 checksum for the filename provided.</p>
+<p>
+</p>
 <hr />
 <h1><a name="export">EXPORT</a></h1>
 <p>logme and gettimestamp are exported.</p>
@@ -196,15 +201,13 @@ file already exists.</p>
 </p>
 <hr />
 <h1><a name="copyright_and_license">COPYRIGHT AND LICENSE</a></h1>
-<p>Copyright 2003-2004 by Markus Linke</p>
+<p>Copyright 2003-2004 by Markus Linke
+
+</p>
 <p>This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 </p>
-<p>
-</p>
-<hr />
-<h1><a name="amendment_history">AMENDMENT HISTORY</a></h1>
 
 </body>
 

@@ -6,6 +6,7 @@ ABSTRACT
 
 PREREQUISITS
     This module needs Crypt::RC6 for its encryption/decryption routine.
+    Digest::MD5 and DirHandle used for checksum routines.
 
 SYNOPSIS
     Sample Script:
@@ -133,6 +134,9 @@ DESCRIPTION
     Create or delete PID file. If set to exclusive, the program dies if the
     file already exists.
 
+  my $md5 = IOToolkit::get_md5_checksum("IOToolkit.pm");
+    Create a MD5 checksum for the filename provided.
+
 EXPORT
     logme and gettimestamp are exported.
 
@@ -150,4 +154,3 @@ COPYRIGHT AND LICENSE
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.
 
-AMENDMENT HISTORY
