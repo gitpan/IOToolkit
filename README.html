@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>IOToolkit - Perl extension to create logfiles</title>
+<title>IOToolkit.pm</title>
 <link rev="made" href="mailto:root@localhost" />
 </head>
 
@@ -31,7 +31,7 @@
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
-<p>IOToolkit - Perl extension to create logfiles</p>
+<p>IOToolkit</p>
 <p>
 </p>
 <hr />
@@ -46,11 +46,15 @@
     package main; 
     use vars qw($getopt_loglevel $program $programname);</pre>
 <pre>
-    $program=&quot;logging&quot;;
-    $programname = $program.&quot;.pl&quot;;
+    my $program = $0;                   # Script Name with path
+    $program =~ m/\/(.+)/i;             # Only the scriptname
+    $programname = $1;  
+    $program =~ m/(.+)\.pl/i;           # Without the extension
+    $program = $1;</pre>
+<pre>
     my $logfilename = $program.&quot;.log&quot;;
-    my $version = &quot;1.00&quot;;
-    my $description = &quot;Logging-Sample&quot;;</pre>
+    my $VERSION = &quot;1.00&quot;;
+    my $description = &quot;Description goes here&quot;;</pre>
 <pre>
     GetOptions(&quot;loglevel=s&quot; =&gt; \$getopt_loglevel);</pre>
 <pre>
@@ -60,8 +64,9 @@
        die &quot;You did not provide any parameters. The program ended here.\n\n&quot;;
     }</pre>
 <pre>
+    #logme(&quot;open&quot;);                     # uses a default filename scriptname.log in the same dir
     logme(&quot;open&quot;,$logfilename);
-    logme(&quot;D&quot;,&quot;$programname V$version started --------------------------------------------------&quot;);
+    logme(&quot;D&quot;,&quot;$programname V$VERSION started --------------------------------------------------&quot;);
     logme(&quot;M&quot;,&quot;This is a MESSAGE&quot;);
     logme(&quot;D&quot;,&quot;This is a DEBUG-MESSAGE&quot;);
     logme(&quot;E&quot;,&quot;This is an ERROR-MESSAGE&quot;);
@@ -69,8 +74,8 @@
     logme(&quot;C&quot;,&quot;This is a CONFIGURATION-MESSAGE&quot;);
     logme(&quot;M&quot;,&quot;FATAL- and SYSTEM-MESSAGES (F/S) are always logged.&quot;);
     logme(&quot;M&quot;,&quot;If the loglevel parameter contains - no messages are displayed.&quot;);
-    #logme(&quot;F&quot;,&quot;This is a FATAL-MESSAGE&quot;);
-    logme(&quot;D&quot;,&quot;$programname V$version ended   --------------------------------------------------&quot;);
+    #logme(&quot;F&quot;,&quot;This is a FATAL-MESSAGE which lets the program die&quot;);
+    logme(&quot;D&quot;,&quot;$programname V$VERSION ended   --------------------------------------------------&quot;);
     logme(&quot;close&quot;);</pre>
 <p>This displays and creates a logfile like this:</p>
 <pre>
@@ -87,20 +92,23 @@
 </p>
 <hr />
 <h1><a name="abstract">ABSTRACT</a></h1>
-<p>Provides a human-readable logfile and is ment to replace ``print'' in your programs.</p>
+<p>IOToolkit - Perl extension to create logfiles</p>
 <p>
 </p>
 <hr />
 <h1><a name="description">DESCRIPTION</a></h1>
+<p>Provides a human-readable logfile and is ment to replace ``print'' and ``die'' in your programs.</p>
 <p>This module was written to provide an easy way to log messages. It
-checks for an option --loglevel=EMCDEQ- where each character stands 
+checks for an option --loglevel=EMCDQ- where each character stands 
 for a certain level. e.g.</p>
 <pre>
-   E=Error
-   S=System
-   M=Message
-   D=Debug
-   -=Silent</pre>
+   E   = Error
+   S   = System
+   M   = Message
+   D   = Debug
+   -   = Silent
+   all = All messages</pre>
+<p>You can use all characters you would like to use. These are just examples.</p>
 <p>the minus (``-'') has a special meaning: supresses output to the screen and
 ONLY logs them to the file. Please see the sample script for more details.</p>
 <p>The function gettimestamp returns the current time in the format used for the logfile. 
@@ -128,9 +136,7 @@ this: 20041009131500</p>
 <h1><a name="copyright_and_license">COPYRIGHT AND LICENSE</a></h1>
 <p>Copyright 2004 by Markus Linke</p>
 <p>This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
-</p>
+it under the same terms as Perl itself.</p>
 
 </body>
 
