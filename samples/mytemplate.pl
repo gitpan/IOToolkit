@@ -15,7 +15,12 @@ $program =~ m/(.+)\.pl/i;    	# Without the extension
 $program = $1;
 
 my $logfilename = $program . ".log";
-my $VERSION = sprintf "%d.%02d", '$Revision:   1.2  $' =~ /(\d+)/g;
+my $VERSION     = '1.0.'.(qw$LastChangedRevision: 29 $)[-1];
+
+#$LastChangedDate: 2004-10-30 18:13:47 +0100 (Sat, 30 Oct 2004) $
+#$LastChangedRevision: 29 $
+#$Id: mytemplate.pl 29 2004-10-30 17:13:47Z root $
+
 my $description = "Script";
 
 GetOptions("loglevel=s" => \$getopt_loglevel);
@@ -35,8 +40,6 @@ logme("M","$programname V$VERSION ended   --------------------------------------
 logme("close");
 
 1;
-
-__END__
 
 # Below is stub documentation for your module. You'd better edit it!
 
@@ -76,12 +79,5 @@ Copyright 2004 by Markus Linke
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
-
-=head1 AMENDMENT HISTORY
-
- $Log:   /hfx/var/pvcs/Murex/archives/pl/mytemplate.pl-arc  $
-# 
-#    Rev 1.2   29 Oct 2004 14:28:32   ml7tre
-# pvcs related changes
 
 =cut

@@ -23,11 +23,11 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-$VERSION     = '1.28.'.(qw$LastChangedRevision: 18 $)[-1];
+$VERSION     = '1.28.'.(qw$LastChangedRevision: 28 $)[-1];
 
-#$LastChangedDate: 2004-10-30 17:27:44 +0100 (Sat, 30 Oct 2004) $
-#$LastChangedRevision: 18 $
-#$Id: IOToolkit.pm 18 2004-10-30 16:27:44Z root $
+#$LastChangedDate: 2004-10-30 18:10:49 +0100 (Sat, 30 Oct 2004) $
+#$LastChangedRevision: 28 $
+#$Id: IOToolkit.pm 28 2004-10-30 17:10:49Z root $
 
 
 sub logme
@@ -225,10 +225,6 @@ __END__
 =head1 NAME
 
 IOToolkit
-
-=head1 VERSION
-
-$Revision:   1.28  $
 
 =head1 ABSTRACT
 

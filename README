@@ -1,9 +1,6 @@
 NAME
     IOToolkit
 
-VERSION
-    $Revision: 1.28 $
-
 ABSTRACT
     IOToolkit - Perl extension to create logfiles
 
