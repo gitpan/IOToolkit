@@ -23,11 +23,11 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-$VERSION     = '1.28.'.(qw$LastChangedRevision: 39 $)[-1];
+$VERSION     = '1.28.'.(qw$LastChangedRevision: 45 $)[-1];
 
-#$LastChangedDate: 2004-10-31 09:17:17 +0000 (Sun, 31 Oct 2004) $
-#$LastChangedRevision: 39 $
-#$Id: IOToolkit.pm 39 2004-10-31 09:17:17Z root $
+#$LastChangedDate: 2004-10-31 16:21:24 +0000 (Sun, 31 Oct 2004) $
+#$LastChangedRevision: 45 $
+#$Id: IOToolkit.pm 45 2004-10-31 16:21:24Z root $
 
 
 sub logme
@@ -132,7 +132,9 @@ sub sql2data
 {
     my $localdbh = $_[0];
     my $sql      = $_[1];
-
+   
+    logme("S",$sql);
+    
     my $sth = $localdbh->prepare($sql);
     my $rc  = $sth->execute;
 
@@ -216,6 +218,24 @@ sub decrypt
     my $pwd = $cipher->decrypt($ep);
     $pwd =~ s/\s//g;
     return $pwd;
+}
+
+sub pid {
+   my $status = $_[0];
+   my $file   = $_[1];
+   
+   if   ($status eq "exclusive") {
+      if (-e $file) { die "PID File $file exists! Program ends here.\n";}
+      open PID,">$file";
+      print PID $$;
+      close PID;
+   } if ($status eq "overwrite") {
+      open PID,">$file";
+      print PID $$;
+      close PID;
+   } if ($status eq "remove") {
+      unlink $file;
+   }
 }
 
 1;
@@ -359,6 +379,11 @@ IOToolkit::sql2data executes SQL statement and creates a array of hashs
 
 needs two strings as parameters (e.g. seed and password) and returns an
 encrypted/decrypted value.
+
+=head2 IOToolkit::pid("exclusive|overwrite|remove","/tmp/filename.pid");
+
+Create or delete PID file. If set to exclusive, the program dies if the 
+file already exists. 
 
 =head1 EXPORT
 

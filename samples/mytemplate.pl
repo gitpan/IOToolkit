@@ -1,5 +1,9 @@
 #!/hfx/opt/perl-5.8/bin/perl
 
+#$LastChangedDate: 2004-10-31 14:16:14 +0000 (Sun, 31 Oct 2004) $
+#$LastChangedRevision: 42 $
+#$Id: mytemplate.pl 42 2004-10-31 14:16:14Z root $
+
 use strict;
 use warnings;
 use Getopt::Long;    # processing command-line parameters
@@ -8,18 +12,14 @@ use IOToolkit;
 package main;
 use vars qw($getopt_loglevel $program $programname);
 
-my $program = $0;    		# Script Name with path
+$program = $0;    		# Script Name with path
 $program =~ m/\/(.+)/i;    	# Only the scriptname
 $programname = $1;
 $program =~ m/(.+)\.pl/i;    	# Without the extension
 $program = $1;
 
 my $logfilename = $program . ".log";
-my $VERSION     = '1.0.'.(qw$LastChangedRevision: 37 $)[-1];
-
-#$LastChangedDate: 2004-10-31 09:13:24 +0000 (Sun, 31 Oct 2004) $
-#$LastChangedRevision: 37 $
-#$Id: mytemplate.pl 37 2004-10-31 09:13:24Z root $
+my $VERSION     = '1.0.'.(qw$LastChangedRevision: 42 $)[-1];
 
 my $description = "Framework for new scripts.";
 

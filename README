@@ -129,6 +129,10 @@ DESCRIPTION
     needs two strings as parameters (e.g. seed and password) and returns an
     encrypted/decrypted value.
 
+  IOToolkit::pid("exclusive|overwrite|remove","/tmp/filename.pid");
+    Create or delete PID file. If set to exclusive, the program dies if the
+    file already exists.
+
 EXPORT
     logme and gettimestamp are exported.
 

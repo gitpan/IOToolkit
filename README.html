@@ -24,6 +24,7 @@
 		<li><a href="#iotoolkit::trim">IOToolkit::trim</a></li>
 		<li><a href="#iotoolkit::hash2sql">IOToolkit::hash2sql</a></li>
 		<li><a href="#iotoolkit::encrypt_and_iotoolkit::decrypt">IOToolkit::encrypt and IOToolkit::decrypt</a></li>
+		<li><a href="#iotoolkit::pid(exclusive|overwrite|remove,/tmp/filename.pid);">IOToolkit::pid(``exclusive|overwrite|remove'',``/tmp/filename.pid'');</a></li>
 	</ul>
 
 	<li><a href="#export">EXPORT</a></li>
@@ -170,6 +171,11 @@ Result:</pre>
 encrypted/decrypted value.</p>
 <p>
 </p>
+<h2><a name="iotoolkit::pid(exclusive|overwrite|remove,/tmp/filename.pid);">IOToolkit::pid(``exclusive|overwrite|remove'',``/tmp/filename.pid'');</a></h2>
+<p>Create or delete PID file. If set to exclusive, the program dies if the 
+file already exists.</p>
+<p>
+</p>
 <hr />
 <h1><a name="export">EXPORT</a></h1>
 <p>logme and gettimestamp are exported.</p>
@@ -192,7 +198,9 @@ encrypted/decrypted value.</p>
 <h1><a name="copyright_and_license">COPYRIGHT AND LICENSE</a></h1>
 <p>Copyright 2003-2004 by Markus Linke</p>
 <p>This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.</p>
+it under the same terms as Perl itself. 
+
+</p>
 <p>
 </p>
 <hr />
