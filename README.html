@@ -121,10 +121,10 @@ this: 20041009131500</p>
 <pre>
    use IOToolkit;</pre>
 <pre>
-   my %hash;</pre>
-<pre>
-   $hash{firstname}=&quot;Markus&quot;;
-   $hash{lastname}=&quot;Linke&quot;;</pre>
+   my %hash=(
+      firstname=&gt;&quot;Markus&quot;,
+      lastname=&gt;&quot;Linke&quot;,
+   );</pre>
 <pre>
    print IOToolkit::hash2sqlinsert(&quot;tablename&quot;,%hash).&quot;\n&quot;;
    
@@ -132,6 +132,11 @@ Result:</pre>
 <pre>
    !&gt; ./hash2sql.pl
    insert (firstname,lastname) values (&quot;Markus&quot;,&quot;Linke&quot;) into tablename</pre>
+<p>IOToolkit::sql2data executes SQL statement and creates a array of hashs</p>
+<pre>
+   use IOToolkit;
+   use Data::Dumper;
+   print Dumper(IOToolkit::sql2data($dbh,&quot;select * from environments&quot;));</pre>
 <p>
 </p>
 <h2><a name="export">EXPORT</a></h2>

@@ -95,10 +95,10 @@ DESCRIPTION
 
        use IOToolkit;
 
-       my %hash;
-
-       $hash{firstname}="Markus";
-       $hash{lastname}="Linke";
+       my %hash=(
+          firstname=>"Markus",
+          lastname=>"Linke",
+       );
 
        print IOToolkit::hash2sqlinsert("tablename",%hash)."\n";
    
@@ -106,6 +106,12 @@ DESCRIPTION
 
        !> ./hash2sql.pl
        insert (firstname,lastname) values ("Markus","Linke") into tablename
+
+    IOToolkit::sql2data executes SQL statement and creates a array of hashs
+
+       use IOToolkit;
+       use Data::Dumper;
+       print Dumper(IOToolkit::sql2data($dbh,"select * from environments"));
 
   EXPORT
     logme and gettimestamp are exported.

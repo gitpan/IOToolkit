@@ -21,7 +21,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT  = qw(&logme &gettimestamp);
-our $VERSION = '1.12.3';
+our $VERSION = '1.13';
 
 sub logme {
 
@@ -112,7 +112,43 @@ sub hash2sqlinsert {
       push @values, $hash{$a};
    }
     
-   return "insert (".join(",",@fields).") values (\"".join("\",\"",@values)."\") into $table";
+   return "insert (".join(",",@fields).") values (\'".join("\',\'",@values)."\') into $table;";
+}
+
+sub sql2data {
+   my $localdbh=$_[0];
+   my $sql=$_[1];
+
+   my $sth = $localdbh->prepare($sql);
+   my $rc  = $sth->execute;
+
+   my $num_of_fields = $sth->{NUM_OF_FIELDS};
+   my @field_names=@{ $sth->{NAME} };
+
+   my $ary_ref = $sth->fetchall_arrayref();
+   my $total_rows=@$ary_ref;
+   
+   my @resultlist;
+
+   if ($@) {
+      logme("F","Database Error: Unable to get data $localdbh->errstr");
+   } else 
+   {
+      foreach my $row (@$ary_ref) {
+         my %hashrow;
+         my $i=0; 
+         while ($i < $num_of_fields) {
+            if (defined(@$row[$i])) {
+               $hashrow{$field_names[$i]}=@$row[$i];
+   	    } else {
+	    }
+            $i++;
+         }
+         push @resultlist,%hashrow;
+      }
+   }
+
+   return @resultlist;
 }
 
 1;
@@ -217,10 +253,10 @@ Example:
 
    use IOToolkit;
 
-   my %hash;
-
-   $hash{firstname}="Markus";
-   $hash{lastname}="Linke";
+   my %hash=(
+      firstname=>"Markus",
+      lastname=>"Linke",
+   );
 
    print IOToolkit::hash2sqlinsert("tablename",%hash)."\n";
    
@@ -228,6 +264,13 @@ Result:
 
    !> ./hash2sql.pl
    insert (firstname,lastname) values ("Markus","Linke") into tablename
+
+IOToolkit::sql2data executes SQL statement and creates a array of hashs
+
+   use IOToolkit;
+   use Data::Dumper;
+   print Dumper(IOToolkit::sql2data($dbh,"select * from environments"));
+
 
 =head2 EXPORT
 

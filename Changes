@@ -11,3 +11,6 @@ Revision history for Perl extension IOToolkit.
 
 1.12.3 20041028
        hash2sql added.
+
+1.13   20041028
+       sql2data added.
