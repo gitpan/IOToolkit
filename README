@@ -89,17 +89,37 @@ DESCRIPTION
 
     IOToolkit::trim trims a variable.
 
+    IOToolkit::hash2sql creates SQL code to insert a hash into a table.
+
+    Example:
+
+       use IOToolkit;
+
+       my %hash;
+
+       $hash{firstname}="Markus";
+       $hash{lastname}="Linke";
+
+       print IOToolkit::hash2sqlinsert("tablename",%hash)."\n";
+   
+    Result:
+
+       !> ./hash2sql.pl
+       insert (firstname,lastname) values ("Markus","Linke") into tablename
+
   EXPORT
     logme and gettimestamp are exported.
 
 SEE ALSO
-    http://www.linke.de
+    http://www.linke.de for my personal homepage http://www.nmsalert.com for
+    website monitoring solutions http://www.trackalizer.com for website
+    visitor tracking and clickpath analysis
 
 AUTHOR
     Markus Linke, markus.linke@linke.de
 
 COPYRIGHT AND LICENSE
-    Copyright 2004 by Markus Linke
+    Copyright 2003-2004 by Markus Linke
 
     This library is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

@@ -116,6 +116,22 @@ If you specifiy the format &amp;gettimestamp(``filename'') it returns something 
 this: 20041009131500</p>
 <p>IOToolkit::moduleinfo prints a list of loaded modules.</p>
 <p>IOToolkit::trim trims a variable.</p>
+<p>IOToolkit::hash2sql creates SQL code to insert a hash into a table.</p>
+<p>Example:</p>
+<pre>
+   use IOToolkit;</pre>
+<pre>
+   my %hash;</pre>
+<pre>
+   $hash{firstname}=&quot;Markus&quot;;
+   $hash{lastname}=&quot;Linke&quot;;</pre>
+<pre>
+   print IOToolkit::hash2sqlinsert(&quot;tablename&quot;,%hash).&quot;\n&quot;;
+   
+Result:</pre>
+<pre>
+   !&gt; ./hash2sql.pl
+   insert (firstname,lastname) values (&quot;Markus&quot;,&quot;Linke&quot;) into tablename</pre>
 <p>
 </p>
 <h2><a name="export">EXPORT</a></h2>
@@ -124,7 +140,9 @@ this: 20041009131500</p>
 </p>
 <hr />
 <h1><a name="see_also">SEE ALSO</a></h1>
-<p><a href="http://www.linke.de">http://www.linke.de</a></p>
+<p><a href="http://www.linke.de">http://www.linke.de</a> for my personal homepage
+<a href="http://www.nmsalert.com">http://www.nmsalert.com</a> for website monitoring solutions
+<a href="http://www.trackalizer.com">http://www.trackalizer.com</a> for website visitor tracking and clickpath analysis</p>
 <p>
 </p>
 <hr />
@@ -134,9 +152,11 @@ this: 20041009131500</p>
 </p>
 <hr />
 <h1><a name="copyright_and_license">COPYRIGHT AND LICENSE</a></h1>
-<p>Copyright 2004 by Markus Linke</p>
+<p>Copyright 2003-2004 by Markus Linke</p>
 <p>This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.</p>
+it under the same terms as Perl itself. 
+
+</p>
 
 </body>
 

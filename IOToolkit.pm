@@ -21,7 +21,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT  = qw(&logme &gettimestamp);
-our $VERSION = '1.12.2';
+our $VERSION = '1.12.3';
 
 sub logme {
 
@@ -100,6 +100,19 @@ sub moduleinfo {
     print "Directories searched:\n\t", join( "\n\t" => @INC ),
       "\nModules loaded:\n\t", join( "\n\t" => sort values %INC ), "\n";
     return 1;
+}
+
+sub hash2sqlinsert {
+   my $table=shift;
+   my %hash=@_;
+   my @fields = sort keys %hash;
+   my @values;
+   
+   foreach $a (sort keys %hash) {
+      push @values, $hash{$a};
+   }
+    
+   return "insert (".join(",",@fields).") values (\"".join("\",\"",@values)."\") into $table";
 }
 
 1;
@@ -198,13 +211,33 @@ IOToolkit::moduleinfo prints a list of loaded modules.
 
 IOToolkit::trim trims a variable.
 
+IOToolkit::hash2sql creates SQL code to insert a hash into a table.
+
+Example:
+
+   use IOToolkit;
+
+   my %hash;
+
+   $hash{firstname}="Markus";
+   $hash{lastname}="Linke";
+
+   print IOToolkit::hash2sqlinsert("tablename",%hash)."\n";
+   
+Result:
+
+   !> ./hash2sql.pl
+   insert (firstname,lastname) values ("Markus","Linke") into tablename
+
 =head2 EXPORT
 
 logme and gettimestamp are exported.
 
 =head1 SEE ALSO
 
-http://www.linke.de
+http://www.linke.de for my personal homepage
+http://www.nmsalert.com for website monitoring solutions
+http://www.trackalizer.com for website visitor tracking and clickpath analysis
 
 =head1 AUTHOR
 
@@ -212,7 +245,7 @@ Markus Linke, markus.linke@linke.de
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004 by Markus Linke
+Copyright 2003-2004 by Markus Linke
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
