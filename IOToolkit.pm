@@ -8,6 +8,7 @@ use vars qw(@ISA @EXPORT @EXPORT_OK %EXPORT_TAGS $VERSION);
 use base qw(Exporter);
 use Crypt::RC6;
 use English;
+use POSIX;
 
 require Exporter;
 
@@ -22,7 +23,7 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-our $VERSION = sprintf "%d.%02d", '$Revision:   1.26  $' =~ /(\d+)/g;
+our $VERSION = sprintf "%d.%02d", '$Revision:   1.28  $' =~ /(\d+)/g;
 
 sub logme
 {
@@ -74,25 +75,13 @@ sub logme
 sub gettimestamp
 {
     my $format = $_[0];
-    my ($sec, $min, $hour, $mday, $mon, $year) = localtime;
-    $year = $year + 1900;
-    $mon  = $mon + 1;
-    if ($mon < 10)  { $mon  = "0" . $mon; }
-    if ($mday < 10) { $mday = "0" . $mday; }
-    if ($hour < 10) { $hour = "0" . $hour; }
-    if ($min < 10)  { $min  = "0" . $min; }
-    if ($sec < 10)  { $sec  = "0" . $sec; }
-    if (defined($format))
-    {
 
-        if ($format eq "filename")
-        {
-            return "$year" . "$mon" . "$mday" . "$hour" . "$min" . "$sec";
-        }
-    }
-    else
-    {
-        return "$year-$mon-$mday $hour:$min:$sec";
+    if (! defined($format)) {
+       return strftime("%Y-%m-%d %H:%M:%S",localtime);
+    } elsif ($format eq "filename") {
+       return strftime("%Y%m%d%H%M%S",localtime);
+    } else {
+       return strftime($format,localtime);
     }
 }
 
@@ -234,7 +223,7 @@ IOToolkit
 
 =head1 VERSION
 
-$Revision:   1.26  $
+$Revision:   1.28  $
 
 =head1 ABSTRACT
 
@@ -387,6 +376,12 @@ it under the same terms as Perl itself.
 =head1 AMENDMENT HISTORY
 
  $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+# 
+#    Rev 1.28   29 Oct 2004 13:34:40   ml7tre
+# bugfix
+# 
+#    Rev 1.27   29 Oct 2004 13:33:00   ml7tre
+# gettimestamp updated (now uses POSIX)
 # 
 #    Rev 1.26   29 Oct 2004 12:33:58   ml7tre
 # minor changes

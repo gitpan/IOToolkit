@@ -2,7 +2,7 @@ NAME
     IOToolkit
 
 VERSION
-    $Revision: 1.26 $
+    $Revision: 1.28 $
 
 ABSTRACT
     IOToolkit - Perl extension to create logfiles
@@ -144,6 +144,12 @@ COPYRIGHT AND LICENSE
 
 AMENDMENT HISTORY
      $Log:   /hfx/var/pvcs/Murex/archives/Tonys/IOToolkit.pm-arc  $
+    # 
+    #    Rev 1.28   29 Oct 2004 13:34:40   ml7tre
+    # bugfix
+    # 
+    #    Rev 1.27   29 Oct 2004 13:33:00   ml7tre
+    # gettimestamp updated (now uses POSIX)
     # 
     #    Rev 1.26   29 Oct 2004 12:33:58   ml7tre
     # minor changes
