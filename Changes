@@ -1,4 +1,20 @@
 ------------------------------------------------------------------------
+r39 | root | 2004-10-31 09:17:17 +0000 (Sun, 31 Oct 2004) | 1 line
+
+POD update
+------------------------------------------------------------------------
+r38 | root | 2004-10-31 09:14:58 +0000 (Sun, 31 Oct 2004) | 1 line
+
+This is the final version. I switched from no version control to CVS to PVCS to Subversion. I had to do a couple of changes to the code to work nicely with this version control system. This is the first "stable" release.
+------------------------------------------------------------------------
+r35 | root | 2004-10-30 19:57:47 +0100 (Sat, 30 Oct 2004) | 1 line
+
+x
+------------------------------------------------------------------------
+r34 | root | 2004-10-30 19:55:56 +0100 (Sat, 30 Oct 2004) | 1 line
+
+x
+------------------------------------------------------------------------
 r28 | root | 2004-10-30 18:10:49 +0100 (Sat, 30 Oct 2004) | 1 line
 
 "Version" removed from POD documentation

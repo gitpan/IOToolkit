@@ -23,11 +23,11 @@ our %EXPORT_TAGS = (
 our @EXPORT_OK = (@{$EXPORT_TAGS{'all'}});
 
 our @EXPORT  = qw(&logme &gettimestamp);
-$VERSION     = '1.28.'.(qw$LastChangedRevision: 28 $)[-1];
+$VERSION     = '1.28.'.(qw$LastChangedRevision: 39 $)[-1];
 
-#$LastChangedDate: 2004-10-30 18:10:49 +0100 (Sat, 30 Oct 2004) $
-#$LastChangedRevision: 28 $
-#$Id: IOToolkit.pm 28 2004-10-30 17:10:49Z root $
+#$LastChangedDate: 2004-10-31 09:17:17 +0000 (Sun, 31 Oct 2004) $
+#$LastChangedRevision: 39 $
+#$Id: IOToolkit.pm 39 2004-10-31 09:17:17Z root $
 
 
 sub logme
@@ -313,6 +313,13 @@ ONLY logs them to the file. Please see the sample script for more details.
 The function gettimestamp returns the current time in the format used for the logfile. 
 If you specifiy the format &gettimestamp("filename") it returns something like
 this: 20041009131500
+
+=head2 IOToolkit::logme("M","Message")
+
+The first parameter specifies the severity of the message. The message is only logged, if 
+$getopt_loglevel contains that severity.
+
+Because IOToolkit::logme is exported, you can just use logme("M","message") in your scripts. 
 
 =head2 IOToolkit::moduleinfo 
 

@@ -88,6 +88,13 @@ DESCRIPTION
     for the logfile. If you specifiy the format &gettimestamp("filename") it
     returns something like this: 20041009131500
 
+  IOToolkit::logme("M","Message")
+    The first parameter specifies the severity of the message. The message
+    is only logged, if $getopt_loglevel contains that severity.
+
+    Because IOToolkit::logme is exported, you can just use
+    logme("M","message") in your scripts.
+
   IOToolkit::moduleinfo
     prints a list of loaded modules.
 

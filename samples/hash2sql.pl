@@ -46,5 +46,45 @@ while (1) {
 
 logme("close");
 $dbh->disconnect();
+
 1;
+
+=head1 NAME
+
+hash2sql.pl
+
+=head1 SYNOPSIS
+
+./hash2sql.pl
+
+=head1 ABSTRACT
+
+Simple sample script about how to create SQL statements from a hash
+  
+=head1 DESCRIPTION
+
+Here comes the full description
+
+=head2 EXPORT
+
+None by default.
+
+=head1 SEE ALSO
+
+   Documentation:   none
+   Mailing List:    none
+   Support Website: none
+
+=head1 AUTHOR
+
+Markus Linke, E<lt>markus.linke@linke.deE<gt>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2004 by Markus Linke
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
+
+=cut
 

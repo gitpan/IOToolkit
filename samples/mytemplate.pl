@@ -15,13 +15,13 @@ $program =~ m/(.+)\.pl/i;    	# Without the extension
 $program = $1;
 
 my $logfilename = $program . ".log";
-my $VERSION     = '1.0.'.(qw$LastChangedRevision: 29 $)[-1];
+my $VERSION     = '1.0.'.(qw$LastChangedRevision: 37 $)[-1];
 
-#$LastChangedDate: 2004-10-30 18:13:47 +0100 (Sat, 30 Oct 2004) $
-#$LastChangedRevision: 29 $
-#$Id: mytemplate.pl 29 2004-10-30 17:13:47Z root $
+#$LastChangedDate: 2004-10-31 09:13:24 +0000 (Sun, 31 Oct 2004) $
+#$LastChangedRevision: 37 $
+#$Id: mytemplate.pl 37 2004-10-31 09:13:24Z root $
 
-my $description = "Script";
+my $description = "Framework for new scripts.";
 
 GetOptions("loglevel=s" => \$getopt_loglevel);
 
@@ -45,11 +45,11 @@ logme("close");
 
 =head1 NAME
 
-script.pl
+mytemplate.pl
 
 =head1 SYNOPSIS
 
-./script.pl --loglevel=all
+./mytemplate.pl --loglevel=all
 
 =head1 ABSTRACT
 

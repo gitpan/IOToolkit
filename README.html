@@ -19,6 +19,7 @@
 	<li><a href="#description">DESCRIPTION</a></li>
 	<ul>
 
+		<li><a href="#iotoolkit::logme(m,message)">IOToolkit::logme(``M'',``Message'')</a></li>
 		<li><a href="#iotoolkit::moduleinfo">IOToolkit::moduleinfo</a></li>
 		<li><a href="#iotoolkit::trim">IOToolkit::trim</a></li>
 		<li><a href="#iotoolkit::hash2sql">IOToolkit::hash2sql</a></li>
@@ -125,6 +126,12 @@ ONLY logs them to the file. Please see the sample script for more details.</p>
 <p>The function gettimestamp returns the current time in the format used for the logfile. 
 If you specifiy the format &amp;gettimestamp(``filename'') it returns something like
 this: 20041009131500</p>
+<p>
+</p>
+<h2><a name="iotoolkit::logme(m,message)">IOToolkit::logme(``M'',``Message'')</a></h2>
+<p>The first parameter specifies the severity of the message. The message is only logged, if 
+$getopt_loglevel contains that severity.</p>
+<p>Because IOToolkit::logme is exported, you can just use <code>logme(``M'',``message'')</code> in your scripts.</p>
 <p>
 </p>
 <h2><a name="iotoolkit::moduleinfo">IOToolkit::moduleinfo</a></h2>
