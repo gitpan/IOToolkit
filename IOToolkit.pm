@@ -17,23 +17,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw(
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT=qw(&logme &gettimestamp);
-our $VERSION = '1.9';
-
-# -------------------------------------------------------
-# if you execute this perl module ("perl IOToolkit.pm") it does a self-test
-$main::getopt_loglevel="EMCDEQ-";
-$main::programname="IOToolkit.pm";
-$main::error_occured=0;
-print "\nIOToolkit.pm testing started ...\n";
-logme ("open","/tmp/IOToolkit.tmp") or die "Error";
-logme ("D",gettimestamp()) or die "Error";
-logme ("D",gettimestamp("filename")) or die "Error";
-logme ("close") or die "Error";
-unlink "/tmp/IOToolkit.tmp" or die "Error";
-print "IOToolkit.pm tests successfully completed ...\n\n";
-# -------------------------------------------------------
-
-# Preloaded methods go here.
+our $VERSION = '1.10';
 
 sub logme{
 
